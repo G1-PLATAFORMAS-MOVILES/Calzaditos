@@ -21,7 +21,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/back_24"
-            android:paddingHorizontal="20dp"/>
+            android:paddingHorizontal="20dp"
+            android:onClick="returnProduct"/>
 
         <TextView
             android:layout_width="280dp"
@@ -88,10 +89,20 @@
         </LinearLayout>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/img_logo"
-            android:paddingHorizontal="10dp"/>
+            android:id="@+id/product_image"
+            android:layout_width="253dp"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="10dp"
+             />
+
+        <ImageView
+            android:id="@+id/brand_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:rotation="270"/>
+
+
+
 
     </LinearLayout>
 

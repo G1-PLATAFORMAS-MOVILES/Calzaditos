@@ -1,12 +1,16 @@
 package com.calzaditos.android
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.bumptech.glide.Glide
 
 class DetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +31,27 @@ class DetailsActivity : AppCompatActivity() {
             insets
         }
 
+        val imageView = findViewById<ImageView>(R.id.product_image)
+
+        Glide.with(this)
+            .load("https://i.postimg.cc/vH05X0GN/14-bota-marron-larga-transparente.png")
+            .placeholder(R.drawable.ic_no_image)
+            .error(R.drawable.ic_no_image)
+            .into(imageView)
+
+        val brandImageView = findViewById<ImageView>(R.id.brand_image)
+        Glide.with(this)
+            .load("https://i.postimg.cc/jdthMWPL/04-logo-vizzano-transparente.png")
+            .placeholder(R.drawable.ic_no_image)
+            .error(R.drawable.ic_no_image)
+            .into(brandImageView)
+
+
+    }
+
+    fun returnProduct(view: View) {
+        val intent = Intent(this, ProductsActivity::class.java)
+        startActivity(intent)
     }
 
 

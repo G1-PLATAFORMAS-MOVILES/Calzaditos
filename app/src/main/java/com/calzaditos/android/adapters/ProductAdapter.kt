@@ -1,5 +1,6 @@
 package com.calzaditos.android.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.calzaditos.android.DetailsActivity
 import com.calzaditos.android.R
 import com.calzaditos.android.models.Product
 
@@ -35,6 +37,11 @@ class ProductAdapter(private val productos: List<Product>) :
             .placeholder(R.drawable.ic_no_image)
             .error(R.drawable.ic_no_image)
             .into(holder.imgProduct)
+
+        holder.imgProduct.setOnClickListener {
+            val intent = Intent(holder.itemView.context, DetailsActivity::class.java)
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int = productos.size
