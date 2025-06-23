@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
+    android:padding="0dp"
     android:background="@android:color/white">
 
     <ImageView
@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:scaleType="fitCenter"
+        android:layout_marginHorizontal="10dp"
         android:contentDescription="Imagen del producto" />
 
     <TextView
@@ -20,6 +21,7 @@
         android:textSize="14sp"
         android:textStyle="bold"
         android:textColor="@android:color/black"
+        android:paddingHorizontal="15dp"
         android:paddingTop="4dp" />
 
     <TextView
@@ -28,5 +30,6 @@
         android:layout_height="wrap_content"
         android:text="S/ 0.00"
         android:textSize="14sp"
+        android:paddingHorizontal="15dp"
         android:textColor="@android:color/black" />
 </LinearLayout>
