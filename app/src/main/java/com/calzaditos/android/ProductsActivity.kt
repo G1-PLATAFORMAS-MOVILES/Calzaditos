@@ -58,8 +58,6 @@ class ProductsActivity : AppCompatActivity() {
             container.addView(imageView)
         }
 
-
-
         val productoList = listOf(
             Product("Botas Bárbara", 319.90, "https://i.postimg.cc/vH05X0GN/14-bota-marron-larga-transparente.png"),
             Product("Botines Xiara", 219.90, "https://i.postimg.cc/KvGnn6hT/12-botin-negro-transparente.png"),
@@ -102,5 +100,7 @@ class ProductsActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.top_menu, menu)
         return true
     }
+
+
 
 }

@@ -150,6 +150,7 @@
     </LinearLayout>
 
     <!-- 4. Grid de productos -->
+    
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/product_grid"
@@ -159,6 +160,7 @@
         android:clipToPadding="false"
         android:paddingHorizontal="12dp"
         android:paddingTop="8dp" />
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
