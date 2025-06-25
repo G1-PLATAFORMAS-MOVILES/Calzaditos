@@ -23,20 +23,23 @@
             android:id="@+id/search_bar"
             android:layout_width="0dp"
             android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="0dp"
             android:layout_weight="1"
-            android:textColorHint="@color/black"
+            android:drawableStart="@drawable/ic_search_2"
             android:hint="¿Qué estás buscando?"
-            android:drawableStart="@drawable/ic_search_36"
-            android:paddingStart="12dp"
-            android:layout_marginEnd="8dp"
-            android:inputType="text" />
+            android:inputType="text"
+            android:paddingStart="10dp"
+            android:textColorHint="@color/black"
+            android:background="@drawable/border"/>
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_filter_36"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Carrito" />
+            android:layout_marginHorizontal="10dp"
+            android:contentDescription="Carrito"
+            android:src="@drawable/ic_filtter_20" />
     </LinearLayout>
 
     <!-- 2. Barra de marcas -->
@@ -55,15 +58,16 @@
         </LinearLayout>
     </HorizontalScrollView>
 
-    <!-- 3. Categorías -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="clip_horizontal"
+        android:layout_marginHorizontal="20sp"
+
         android:paddingVertical="8dp">
 
-        <!-- Repite según categoría -->
+        <!-- categoría -->
         <LinearLayout
             android:orientation="vertical"
             android:gravity="center"
@@ -72,9 +76,11 @@
             android:layout_marginLeft="10dp">
 
             <ImageView
-                android:layout_width="32dp"
+                android:layout_width="55dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_heart_36" />
+                android:layout_marginHorizontal="10sp"
+                android:scaleX="-1"
+                android:src="@drawable/ic_cat_sandal" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -89,9 +95,11 @@
             android:layout_marginLeft="10dp">
 
             <ImageView
-                android:layout_width="32dp"
+                android:layout_width="55dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_heart_36" />
+                android:layout_marginHorizontal="10sp"
+                android:scaleX="-1"
+                android:src="@drawable/ic_cat_shoes" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -106,15 +114,18 @@
             android:layout_marginLeft="10dp">
 
             <ImageView
-                android:layout_width="32dp"
+                android:layout_width="55dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_heart_36" />
+                android:layout_marginHorizontal="10sp"
+                android:scaleX="-1"
+                android:src="@drawable/ic_cat_boots" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Botas"
                 android:textSize="12sp" />
         </LinearLayout>
+
         <LinearLayout
             android:orientation="vertical"
             android:gravity="center"
@@ -123,9 +134,11 @@
             android:layout_marginLeft="10dp">
 
             <ImageView
-                android:layout_width="32dp"
+                android:layout_width="55dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_heart_36" />
+                android:layout_marginHorizontal="10sp"
+                android:scaleX="-1"
+                android:src="@drawable/ic_cat_highhell" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -137,13 +150,17 @@
     </LinearLayout>
 
     <!-- 4. Grid de productos -->
+    
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/product_grid"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingTop="8dp"
-        android:clipToPadding="false" />
+        android:clipToPadding="false"
+        android:paddingHorizontal="12dp"
+        android:paddingTop="8dp" />
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

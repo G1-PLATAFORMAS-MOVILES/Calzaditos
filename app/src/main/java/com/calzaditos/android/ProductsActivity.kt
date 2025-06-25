@@ -35,7 +35,7 @@ class ProductsActivity : AppCompatActivity() {
             Brand("Bata", "https://i.postimg.cc/pL1YVq7F/05-logo-Bata-transparente.png"),
             Brand("Vizzano", "https://i.postimg.cc/jdthMWPL/04-logo-vizzano-transparente.png"),
             Brand("Azaleia", "https://i.postimg.cc/FKdbY05n/06-Logo-Azaleia-transparente.png"),
-            Brand("Viale", "https://i.postimg.cc/25sQh3Cj/07-Logo-X-Viale-Transparente.png")
+            Brand("Viale", "https://i.postimg.cc/Hsz9Rp93/03-logo-Mossa-Transparente.png")
         )
 
         val container = findViewById<LinearLayout>(R.id.brand_container)
@@ -60,8 +60,11 @@ class ProductsActivity : AppCompatActivity() {
 
         val productoList = listOf(
             Product("Botas Bárbara", 319.90, "https://i.postimg.cc/vH05X0GN/14-bota-marron-larga-transparente.png"),
-            Product("Botines Mara", 289.90, "https://i.postimg.cc/SQ76Yy3q/13-botines-marrones-transparente.png"),
-            Product("Botines Xiara", 219.90, "https://i.postimg.cc/KvGnn6hT/12-botin-negro-transparente.png")
+            Product("Botines Xiara", 219.90, "https://i.postimg.cc/KvGnn6hT/12-botin-negro-transparente.png"),
+            Product("Botines New York", 349.90, "https://i.postimg.cc/qqLyPLyg/12-zapatos-botin-blanco-transparente.png"),
+            Product("Zapatos Viale", 249.90, "https://i.postimg.cc/0y3D1rMG/15-sandalia-negra-taco-transparente.png"),
+            Product("Botines Bata", 199.90, "https://i.postimg.cc/9QzZkyMF/16-Botin-negro-taco-transparente.png"),
+            Product("Zapato Mera", 199.90, "https://i.postimg.cc/wvDhVHBX/11-zapato-Flat-transparente.png")
         )
 
         val recyclerView = findViewById<RecyclerView>(R.id.product_grid)
@@ -97,4 +100,7 @@ class ProductsActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.top_menu, menu)
         return true
     }
+
+
+
 }

@@ -11,6 +11,7 @@
         android:id="@+id/include_toolbar"
         layout="@layout/toolbar_calzaditos" />
 
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="0dp"
