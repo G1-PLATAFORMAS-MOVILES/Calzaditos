@@ -41,8 +41,10 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
+
                 R.id.navigation_favorites -> {
-                    Toast.makeText(this, "Favoritos por implementar", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, FavoritesActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 R.id.navigation_account -> {
