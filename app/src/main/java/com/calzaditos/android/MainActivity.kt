@@ -32,11 +32,13 @@ class MainActivity : AppCompatActivity() {
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
-                    startActivity(Intent(this, ProductsActivity::class.java))
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 R.id.navigation_categories -> {
-                    Toast.makeText(this, "Categorías por implementar", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, ProductsActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 R.id.navigation_favorites -> {
