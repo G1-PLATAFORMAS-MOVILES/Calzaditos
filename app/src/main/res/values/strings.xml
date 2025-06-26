@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Calzaditos</string>
+    <string name="menu_home">Inicio</string>
+    <string name="menu_favorites">Favoritos</string>
+    <string name="menu_cart">Carrito</string>
+    <string name="menu_account">Cuenta</string>
+    <string name="menu_categories">Categorías</string>
 </resources>
