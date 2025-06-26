@@ -10,11 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.calzaditos.android.adapters.ProductAdapter
 import com.calzaditos.android.models.Product
 
-class FavoritesActivity : AppCompatActivity() {
+class FavoritesActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_favorites)
+        initializeMenus()
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)

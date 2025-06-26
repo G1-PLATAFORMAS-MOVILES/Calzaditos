@@ -12,11 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.calzaditos.android.adapters.ProductAdapter
 import com.calzaditos.android.models.Product
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_home)
+        initializeMenus()
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -37,8 +38,6 @@ class HomeActivity : AppCompatActivity() {
         recyclerView.adapter = ProductAdapter(productoList)
 
     }
-
-
 
     // ir hacia products
     fun irProducts(view: View) {

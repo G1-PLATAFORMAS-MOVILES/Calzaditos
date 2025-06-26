@@ -14,7 +14,9 @@ import com.calzaditos.android.DetailsActivity
 import com.calzaditos.android.R
 import com.calzaditos.android.models.Product
 
-class CartAdapter(private val productos: List<Product>) :
+class CartAdapter(
+    private val productos: List<Product>,
+    private val onCheckedChange: (Product, Boolean) -> Unit) :
     RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
     class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -48,6 +50,10 @@ class CartAdapter(private val productos: List<Product>) :
         holder.imgProduct.setOnClickListener {
             val intent = Intent(holder.itemView.context, DetailsActivity::class.java)
             holder.itemView.context.startActivity(intent)
+        }
+
+        holder.checkSelect.setOnCheckedChangeListener { _, isChecked ->
+            onCheckedChange(product, isChecked)
         }
     }
 

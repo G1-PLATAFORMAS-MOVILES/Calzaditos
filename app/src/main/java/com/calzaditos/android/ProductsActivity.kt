@@ -19,11 +19,12 @@ import com.calzaditos.android.models.Product
 import com.calzaditos.android.utils.dp
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class ProductsActivity : AppCompatActivity() {
+class ProductsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_products)
+        initializeMenus()
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -70,37 +71,5 @@ class ProductsActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.product_grid)
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         recyclerView.adapter = ProductAdapter(productoList)
-
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-
-        bottomNav.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.navigation_home -> {
-                    startActivity(Intent(this, ProductsActivity::class.java))
-                    true
-                }
-                R.id.navigation_categories -> {
-                    Toast.makeText(this, "Categorías por implementar", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.navigation_favorites -> {
-                    Toast.makeText(this, "Favoritos por implementar", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.navigation_account -> {
-                    Toast.makeText(this, "Cuenta por implementar", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                else -> false
-            }
-        }
     }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.top_menu, menu)
-        return true
-    }
-
-
-
 }

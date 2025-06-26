@@ -1,35 +1,27 @@
 package com.calzaditos.android
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import androidx.appcompat.widget.AppCompatButton
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.calzaditos.android.adapters.ProductAdapter
-import com.calzaditos.android.models.Product
+import com.calzaditos.android.utils.dp
+import com.google.android.material.button.MaterialButton
 
-class DetailsActivity : AppCompatActivity() {
+class DetailsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_details)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-
-        val toolbar = findViewById<Toolbar>(R.id.include_toolbar)
-        setSupportActionBar(toolbar)
-
+        initializeMenus()
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -51,21 +43,37 @@ class DetailsActivity : AppCompatActivity() {
             .error(R.drawable.ic_no_image)
             .into(brandImageView)
 
+        val sizeLayout = findViewById<LinearLayout>(R.id.size_container)
 
-    }
+        val buttons = mutableListOf<MaterialButton>()
+        val sizes = 35..40
 
+        for (i in sizes) {
+            val button = MaterialButton(this).apply {
+                text = i.toString()
+                layoutParams = LinearLayout.LayoutParams(55.dp, LinearLayout.LayoutParams.WRAP_CONTENT).apply {
+                    setMargins(8.dp, 0, 8.dp, 0)
+                }
+                backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.black))
+                setTextColor(ContextCompat.getColor(context, R.color.white))
+            }
 
-    fun returnProduct(view: View) {
-        val intent = Intent(this, ProductsActivity::class.java)
-        startActivity(intent)
+            button.setOnClickListener {
+                buttons.forEach {
+                    it.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.black))
+                    it.setTextColor(ContextCompat.getColor(this, R.color.white))
+                }
+                button.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.gray))
+                button.setTextColor(ContextCompat.getColor(this, R.color.black))
+            }
+
+            buttons.add(button)
+            sizeLayout.addView(button)
+        }
     }
 
     fun irCart(view: View) {
         val intent = Intent(this, CartActivity::class.java)
         startActivity(intent)
     }
-
-
-
-
 }
