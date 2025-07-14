@@ -40,6 +40,7 @@ class ProductAdapter(private val productos: List<Product>) :
 
         holder.imgProduct.setOnClickListener {
             val intent = Intent(holder.itemView.context, DetailsActivity::class.java)
+            intent.putExtra("productId", product.id)
             holder.itemView.context.startActivity(intent)
         }
     }

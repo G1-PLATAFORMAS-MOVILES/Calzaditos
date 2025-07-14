@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.calzaditos.android.adapters.ProductAdapter
 import com.calzaditos.android.models.Brand
 import com.calzaditos.android.models.Product
+import com.calzaditos.android.services.ProductService
 import com.calzaditos.android.utils.dp
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -59,17 +60,10 @@ class ProductsActivity : BaseActivity() {
             container.addView(imageView)
         }
 
-        val productoList = listOf(
-            Product("Botas Bárbara", 319.90, "https://i.postimg.cc/vH05X0GN/14-bota-marron-larga-transparente.png"),
-            Product("Botines Xiara", 219.90, "https://i.postimg.cc/KvGnn6hT/12-botin-negro-transparente.png"),
-            Product("Botines New York", 349.90, "https://i.postimg.cc/qqLyPLyg/12-zapatos-botin-blanco-transparente.png"),
-            Product("Zapatos Viale", 249.90, "https://i.postimg.cc/0y3D1rMG/15-sandalia-negra-taco-transparente.png"),
-            Product("Botines Bata", 199.90, "https://i.postimg.cc/9QzZkyMF/16-Botin-negro-taco-transparente.png"),
-            Product("Zapato Mera", 199.90, "https://i.postimg.cc/wvDhVHBX/11-zapato-Flat-transparente.png")
-        )
-
-        val recyclerView = findViewById<RecyclerView>(R.id.product_grid)
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
-        recyclerView.adapter = ProductAdapter(productoList)
+        ProductService().getProducts(this) { products ->
+            val recyclerView = findViewById<RecyclerView>(R.id.product_grid)
+            recyclerView.layoutManager = GridLayoutManager(this, 2)
+            recyclerView.adapter = ProductAdapter(products)
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.calzaditos.android.models
 
 class Product(
+    var id: Int,
     var name: String,
     var price: Double,
     var discount: Double,
@@ -12,7 +13,8 @@ class Product(
     var colorsHex: ArrayList<String>)
 {
     //TODO remover cuando se haga llamada desde el API
-    constructor(name: String, price: Double, imageUrl: String) : this(
+    constructor(id: Int, name: String, price: Double, imageUrl: String) : this(
+        id,
         name,
         price,
         discount = 0.0,

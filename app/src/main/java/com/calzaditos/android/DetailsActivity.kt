@@ -7,12 +7,14 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
+import com.calzaditos.android.services.ProductService
 import com.calzaditos.android.utils.dp
 import com.google.android.material.button.MaterialButton
 
@@ -28,13 +30,19 @@ class DetailsActivity : BaseActivity() {
             insets
         }
 
-        val imageView = findViewById<ImageView>(R.id.product_image)
+        val productId = intent.getIntExtra("productId", 0)
 
-        Glide.with(this)
-            .load("https://i.postimg.cc/vH05X0GN/14-bota-marron-larga-transparente.png")
-            .placeholder(R.drawable.ic_no_image)
-            .error(R.drawable.ic_no_image)
-            .into(imageView)
+        ProductService().getProduct(productId, this) { product ->
+            findViewById<TextView>(R.id.txtName).text = product.name
+            //findViewById<TextView>(R.id.txtPrice).text = "S/ %.2f".format(product.price)
+            val imageView = findViewById<ImageView>(R.id.product_image)
+
+            Glide.with(this)
+                .load(product.imageUrl)
+                .placeholder(R.drawable.ic_no_image)
+                .error(R.drawable.ic_no_image)
+                .into(imageView)
+        }
 
         val brandImageView = findViewById<ImageView>(R.id.brand_image)
         Glide.with(this)
