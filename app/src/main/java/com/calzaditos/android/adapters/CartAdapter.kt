@@ -1,5 +1,6 @@
 package com.calzaditos.android.adapters
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -8,15 +9,20 @@ import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.calzaditos.android.DetailsActivity
 import com.calzaditos.android.R
 import com.calzaditos.android.models.Product
+import com.calzaditos.android.services.CartService
 
 class CartAdapter(
     private val productos: List<Product>,
-    private val onCheckedChange: (Product, Boolean) -> Unit) :
+    private val userId: Int,
+    private val onCheckedChange: (Product, Boolean) -> Unit,
+    private val onAddChange: (Product, Int) -> Unit,
+    private val context: Context) :
     RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
     class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -40,6 +46,9 @@ class CartAdapter(
         val product = productos[position]
         holder.txtName.text = product.name
         holder.txtPrice.text = "S/ %.2f".format(product.price)
+        val size = "Talla " + product.selectedSize.toString()
+        holder.txtSize.text = size
+        holder.tvQuantity.text = product.units.toString()
 
         Glide.with(holder.itemView.context)
             .load(product.imageUrl)
@@ -54,6 +63,30 @@ class CartAdapter(
 
         holder.checkSelect.setOnCheckedChangeListener { _, isChecked ->
             onCheckedChange(product, isChecked)
+        }
+
+        holder.btnPlus.setOnClickListener {
+            if(holder.checkSelect.isChecked) {
+                CartService().addToCart(userId, product.id, product.units+1, product.selectedSize, context) { success ->
+                    if(success){
+                        product.units++
+                        holder.tvQuantity.text = product.units.toString()
+                        onAddChange(product, 1)
+                    }
+                }
+            }
+        }
+
+        holder.btnMinus.setOnClickListener {
+            if(product.units > 0 && holder.checkSelect.isChecked) {
+                CartService().addToCart(userId, product.id, product.units-1, product.selectedSize, context) { success ->
+                    if(success){
+                        product.units--
+                        holder.tvQuantity.text = product.units.toString()
+                        onAddChange(product, -1)
+                    }
+                }
+            }
         }
     }
 

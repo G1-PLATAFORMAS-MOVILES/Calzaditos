@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".ProfileActivity">
+
+    <include
+        android:id="@+id/include_toolbar"
+        layout="@layout/toolbar_calzaditos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_greeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Hola, Nombre!"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/include_toolbar" />
+
+    <LinearLayout
+        android:id="@+id/tabs_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/border_soft_gray"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_greeting">
+
+        <LinearLayout
+            style="@style/ProfileTab"
+            android:id="@+id/tab_mis_compras">
+            <ImageView
+                style="@style/ProfileTabIcon"
+                android:src="@drawable/ic_box"
+                app:tint="#8A8A8A" />
+            <TextView
+                style="@style/ProfileTabText"
+                android:text="Mis Compras"
+                android:textColor="#8A8A8A"/>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/ProfileTab"
+            android:id="@+id/tab_mi_perfil"
+            android:background="@drawable/border_selected_white">
+            <ImageView
+                style="@style/ProfileTabIcon"
+                android:src="@drawable/ic_profile"
+                app:tint="@android:color/black" />
+            <TextView
+                style="@style/ProfileTabText"
+                android:text="Mi Perfil"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/ProfileTab"
+            android:id="@+id/tab_ayuda">
+            <ImageView
+                style="@style/ProfileTabIcon"
+                android:src="@drawable/ic_help"
+                app:tint="#8A8A8A" />
+            <TextView
+                style="@style/ProfileTabText"
+                android:text="Ayuda"
+                android:textColor="#8A8A8A"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/title_informacion_personal"
+        style="@style/SectionTitle"
+        android:text="Información Personal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabs_layout" />
+
+    <LinearLayout
+        android:id="@+id/layout_informacion_personal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border_soft_gray"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_informacion_personal">
+
+        <TextView
+            style="@style/ProfileMenuItem"
+            android:drawableStart="@drawable/outline_person_24"
+            android:text="Datos personales" />
+
+        <View style="@style/Divider" />
+
+        <TextView
+            style="@style/ProfileMenuItem"
+            android:drawableStart="@drawable/ic_home"
+            android:text="Direcciones" />
+
+        <View style="@style/Divider" />
+
+        <TextView
+            style="@style/ProfileMenuItem"
+            android:drawableStart="@drawable/ic_credit_card"
+            android:text="Datos para reembolso" />
+
+        <View style="@style/Divider" />
+
+        <TextView
+            style="@style/ProfileMenuItem"
+            android:drawableStart="@drawable/ic_favorite_border"
+            android:text="Mis listas" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/title_promociones"
+        style="@style/SectionTitle"
+        android:text="Promociones"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_informacion_personal" />
+
+    <TextView
+        android:id="@+id/btn_cupones"
+        style="@style/ProfileMenuItem.SingleItem"
+        android:drawableStart="@drawable/ic_coupon"
+        android:text="Cupones"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_promociones" />
+
+    <TextView
+        android:id="@+id/title_seguridad"
+        style="@style/SectionTitle"
+        android:text="Seguridad"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_cupones" />
+
+    <TextView
+        android:id="@+id/btn_configuracion"
+        style="@style/ProfileMenuItem.SingleItem"
+        android:drawableStart="@drawable/ic_lock"
+        android:text="Configuración de cuenta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_seguridad" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_menu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

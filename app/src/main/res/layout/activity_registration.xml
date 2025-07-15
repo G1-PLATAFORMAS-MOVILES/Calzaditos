@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/main"
+    android:layout_height="match_parent"
+    tools:context=".RegistrationActivity">
+
+    <include
+        android:id="@+id/include_toolbar_registro"
+        layout="@layout/toolbar_calzaditos"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title_registro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="REGISTRO"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="?android:attr/textColorPrimary"
+        app:layout_constraintTop_toBottomOf="@id/include_toolbar_registro"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/et_nombre_completo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        android:hint="Nombre Completo"
+        android:inputType="textPersonName"
+        android:padding="14dp"
+        android:background="@drawable/border_login_field"
+        app:layout_constraintTop_toBottomOf="@id/title_registro"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/et_correo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Correo Electrónico"
+        android:inputType="textEmailAddress"
+        android:padding="14dp"
+        android:background="@drawable/border_login_field"
+        app:layout_constraintTop_toBottomOf="@id/et_nombre_completo"
+        app:layout_constraintStart_toStartOf="@id/et_nombre_completo"
+        app:layout_constraintEnd_toEndOf="@id/et_nombre_completo" />
+
+    <EditText
+        android:id="@+id/et_contrasena"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Contraseña"
+        android:inputType="textPassword"
+        android:padding="14dp"
+        android:background="@drawable/border_login_field"
+        app:layout_constraintTop_toBottomOf="@id/et_correo"
+        app:layout_constraintStart_toStartOf="@id/et_correo"
+        app:layout_constraintEnd_toEndOf="@id/et_correo" />
+
+    <EditText
+        android:id="@+id/et_confirmar_contrasena"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Confirmar Contraseña"
+        android:inputType="textPassword"
+        android:padding="14dp"
+        android:background="@drawable/border_login_field"
+        app:layout_constraintTop_toBottomOf="@id/et_contrasena"
+        app:layout_constraintStart_toStartOf="@id/et_contrasena"
+        app:layout_constraintEnd_toEndOf="@id/et_contrasena" />
+
+    <TextView
+        android:id="@+id/tv_terminos"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/terminos_y_condiciones"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/et_confirmar_contrasena"
+        app:layout_constraintStart_toStartOf="@id/et_confirmar_contrasena"
+        app:layout_constraintEnd_toEndOf="@id/et_confirmar_contrasena" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_registrarse"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@android:color/black"
+        android:paddingVertical="14dp"
+        android:text="Registrarse"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:cornerRadius="24dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_terminos"
+        app:layout_constraintStart_toStartOf="@id/et_confirmar_contrasena"
+        app:layout_constraintEnd_toEndOf="@id/et_confirmar_contrasena"
+        android:onClick="registerUser"/>
+
+    <TextView
+        android:id="@+id/tv_ingresar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/ya_tiene_cuenta"
+        app:layout_constraintTop_toBottomOf="@id/btn_registrarse"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:onClick="gotoLogin"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

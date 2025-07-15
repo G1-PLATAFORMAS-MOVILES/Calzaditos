@@ -5,4 +5,7 @@
     <string name="menu_cart">Carrito</string>
     <string name="menu_account">Cuenta</string>
     <string name="menu_categories">Categorías</string>
+
+    <string name="terminos_y_condiciones">Al registrarse acepta los <b>Términos y condiciones</b></string>
+    <string name="ya_tiene_cuenta">¿Ya tiene una cuenta? <b>Ingresar</b></string>
 </resources>
