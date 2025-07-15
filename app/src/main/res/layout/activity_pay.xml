@@ -184,9 +184,10 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/text_subtotal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="S/1539.40"
+                android:text="S/"
                 android:textSize="16sp"
                 android:paddingStart="16dp"
                 android:gravity="end" />
@@ -227,9 +228,10 @@
 
 
         <TextView
+            android:id="@+id/text_total"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="S/1539.40"
+            android:text="S/"
             android:textSize="16sp"
             android:gravity="end"
             android:textStyle="bold"/>
@@ -253,7 +255,7 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
-            android:layout_height="50sp"
+            android:layout_height="wrap_content"
             app:menu="@menu/bottom_menu" />
 
     </LinearLayout>

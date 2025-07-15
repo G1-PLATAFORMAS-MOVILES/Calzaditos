@@ -7,16 +7,23 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
+import com.calzaditos.android.services.CartService
+import com.calzaditos.android.services.ProductService
 import com.calzaditos.android.utils.dp
 import com.google.android.material.button.MaterialButton
 
 class DetailsActivity : BaseActivity() {
+    var selectedSize : Int = 35
+    var productId : Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -28,13 +35,20 @@ class DetailsActivity : BaseActivity() {
             insets
         }
 
-        val imageView = findViewById<ImageView>(R.id.product_image)
+        productId = intent.getIntExtra("productId", 0)
 
-        Glide.with(this)
-            .load("https://i.postimg.cc/vH05X0GN/14-bota-marron-larga-transparente.png")
-            .placeholder(R.drawable.ic_no_image)
-            .error(R.drawable.ic_no_image)
-            .into(imageView)
+        ProductService().getProduct(productId, this) { product ->
+            findViewById<TextView>(R.id.txtName).text = product.name
+            findViewById<TextView>(R.id.txtPrice).text = "Precio : S/ %.2f".format(product.price)
+            findViewById<TextView>(R.id.txtDescription).text = product.description
+            val imageView = findViewById<ImageView>(R.id.product_image)
+
+            Glide.with(this)
+                .load(product.imageUrl)
+                .placeholder(R.drawable.ic_no_image)
+                .error(R.drawable.ic_no_image)
+                .into(imageView)
+        }
 
         val brandImageView = findViewById<ImageView>(R.id.brand_image)
         Glide.with(this)
@@ -65,6 +79,7 @@ class DetailsActivity : BaseActivity() {
                 }
                 button.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.gray))
                 button.setTextColor(ContextCompat.getColor(this, R.color.black))
+                selectedSize = i
             }
 
             buttons.add(button)
@@ -72,8 +87,15 @@ class DetailsActivity : BaseActivity() {
         }
     }
 
-    fun irCart(view: View) {
-        val intent = Intent(this, CartActivity::class.java)
-        startActivity(intent)
+    fun addToCart(view: View) {
+        val productId = intent.getIntExtra("productId", 0)
+        val userId = getSharedPreferences("calzaditos", MODE_PRIVATE).getInt("userId", 0)
+        CartService().addToCart(userId, productId, 1, selectedSize, this) { success ->
+            if (success) {
+                Toast.makeText(this, "Producto agregado al carrito", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Error al agregar producto al carrito", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

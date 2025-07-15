@@ -72,7 +72,7 @@
             android:gravity="center">
 
             <ImageButton
-                android:id="@+id/btn_minus"
+                android:id="@+id/btn_plus"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@drawable/border_masmenos"
@@ -90,7 +90,7 @@
                 android:textSize="14sp" />
 
             <ImageButton
-                android:id="@+id/btn_plus"
+                android:id="@+id/btn_minus"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@drawable/border_masmenos"
