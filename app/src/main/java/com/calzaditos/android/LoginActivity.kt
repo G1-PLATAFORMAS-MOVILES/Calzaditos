@@ -31,14 +31,16 @@ class LoginActivity : AppCompatActivity() {
 
         UserService().login(userName, password, this) { success ->
             if (success) {
-                val sharedPreferences: SharedPreferences? =
-                    this.getSharedPreferences("calzaditos", MODE_PRIVATE)
-                val loggedUserName = sharedPreferences?.getString("userName", "")
+                val loggedUserName = getSharedPreferences("calzaditos", MODE_PRIVATE).getString("userName", "")
                 Toast.makeText(this, "Bienvenido $loggedUserName", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, HomeActivity::class.java))
             } else {
                 Toast.makeText(this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    fun gotoRegister(view: View){
+        startActivity(Intent(this, RegistrationActivity::class.java))
     }
 }

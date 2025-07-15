@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -11,10 +12,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.calzaditos.android.adapters.CartAdapter
 import com.calzaditos.android.models.Product
+import com.calzaditos.android.services.CartService
 
 class CartActivity : BaseActivity() {
 
-    private lateinit var productList: List<Product>
+    private lateinit var productList: ArrayList<Product>
     private var cont: Int = 0
     private var sum: Double = 0.0
 
@@ -32,42 +34,74 @@ class CartActivity : BaseActivity() {
         val textViewSelect = findViewById<TextView>(R.id.text_select)
         val textViewTotal = findViewById<TextView>(R.id.text_total)
 
-
-        productList = listOf(
-            Product(1,"Botas Bárbara", 319.90, "https://i.postimg.cc/vH05X0GN/14-bota-marron-larga-transparente.png"),
-            Product(2,"Botines Xiara", 219.90, "https://i.postimg.cc/KvGnn6hT/12-botin-negro-transparente.png"),
-            Product(3,"Botines New York", 349.90, "https://i.postimg.cc/qqLyPLyg/12-zapatos-botin-blanco-transparente.png"),
-            Product(4,"Zapatos Viale", 249.90, "https://i.postimg.cc/0y3D1rMG/15-sandalia-negra-taco-transparente.png"),
-            Product(5,"Botines Bata", 199.90, "https://i.postimg.cc/9QzZkyMF/16-Botin-negro-taco-transparente.png"),
-            Product(6,"Zapato Mera", 199.90, "https://i.postimg.cc/wvDhVHBX/11-zapato-Flat-transparente.png") ,
-        )
+        val userId = getSharedPreferences("calzaditos", MODE_PRIVATE).getInt("userId", 0)
+        CartService().getCart(userId, this) { products ->
+            loadProducts(products)
+        }
 
         textViewSelect.text = "Objetos seleccionados($cont)"
         textViewTotal.text = "S/ %.2f".format(sum)
+    }
 
-
+    fun loadProducts(products : ArrayList<Product>) {
+        productList = products
         val recyclerView = findViewById<RecyclerView>(R.id.product_gridCar)
+        val userId = getSharedPreferences("calzaditos", MODE_PRIVATE).getInt("userId", 0)
         recyclerView.layoutManager = GridLayoutManager(this, 1)
-        recyclerView.adapter = CartAdapter(productList) { product, isChecked ->
-            updateTotal(product, isChecked)
-        }
+        recyclerView.adapter = CartAdapter(
+            productList,
+            userId,
+            { product, isChecked -> updateTotal(product, isChecked) },
+            { product, quantity -> updateQuantity(product, quantity) },
+            this
+        )
+        cont = 0
+        sum = 0.0
     }
 
     fun irPagos (view: View) {
         val intent = Intent(this, PayActivity::class.java)
+        intent.putExtra("sum", sum)
         startActivity(intent)
     }
 
     fun updateTotal(product: Product, isChecked: Boolean) {
-        val textViewSelect = findViewById<TextView>(R.id.text_select)
-        val textViewTotal = findViewById<TextView>(R.id.text_total)
         if(isChecked) {
             cont++
-            sum += product.price
+            sum += product.price * product.units
         } else {
             cont--
-            sum -= product.price
+            sum -= product.price * product.units
         }
+        updateViewTotals()
+    }
+
+    fun updateQuantity(product: Product, quantity: Int) {
+        sum += product.price * quantity
+        if(product.units == 0) {
+            productList.remove(product)
+            loadProducts(productList)
+        }
+        updateViewTotals()
+    }
+
+    fun emptyCart(view: View) {
+        val userId = getSharedPreferences("calzaditos", MODE_PRIVATE).getInt("userId", 0)
+        CartService().emptyCart(userId, this) { success ->
+            if (success) {
+                loadProducts(ArrayList<Product>())
+                cont = 0
+                sum = 0.0
+                updateViewTotals()
+            } else {
+                Toast.makeText(this, "Error al vaciar el carrito", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    fun updateViewTotals(){
+        val textViewSelect = findViewById<TextView>(R.id.text_select)
+        val textViewTotal = findViewById<TextView>(R.id.text_total)
         textViewSelect.text = "Objetos seleccionados($cont)"
         textViewTotal.text = "S/ %.2f".format(sum)
     }

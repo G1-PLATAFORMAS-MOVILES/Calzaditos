@@ -24,8 +24,10 @@ class ProductService : BaseService() {
                     val product = Product(
                         productJson.getInt("id"),
                         productJson.getString("name"),
+                        productJson.getString("description"),
                         productJson.getDouble("price"),
-                        "https://i.postimg.cc/wvDhVHBX/11-zapato-Flat-transparente.png"//productJson.getString("imageUrl")
+                        productJson.getInt("brandId"),
+                        productJson.getString("imageUrl")
                     )
                     products.add(product)
                 }
@@ -49,8 +51,10 @@ class ProductService : BaseService() {
                 val product = Product(
                     productJson.getInt("id"),
                     productJson.getString("name"),
+                    productJson.getString("description"),
                     productJson.getDouble("price"),
-                    "https://i.postimg.cc/wvDhVHBX/11-zapato-Flat-transparente.png"//productJson.getString("imageUrl")
+                    productJson.getInt("brandId"),
+                    productJson.getString("imageUrl")
                 )
                 callback(product)
             },

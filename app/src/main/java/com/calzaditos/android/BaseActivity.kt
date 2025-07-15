@@ -31,10 +31,11 @@ open class BaseActivity : AppCompatActivity(){
         return super.onOptionsItemSelected(item)
     }
 
-    fun initializeMenus(){
+    fun initializeMenus(selectedTab : Int = 0){
         val toolbar = findViewById<Toolbar>(R.id.include_toolbar)
         setSupportActionBar(toolbar)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNav.setSelectedItemId(selectedTab)
         bottomNav?.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
@@ -56,7 +57,8 @@ open class BaseActivity : AppCompatActivity(){
                 }
 
                 R.id.navigation_account -> {
-                    Toast.makeText(this, "Cuenta por implementar", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, ProfileActivity::class.java)
+                    startActivity(intent)
                     true
                 }
 

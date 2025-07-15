@@ -4,8 +4,10 @@ import com.android.volley.NetworkResponse
 import com.android.volley.Response
 import com.android.volley.toolbox.HttpHeaderParser
 import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.calzaditos.android.services.BaseService
+import org.json.JSONObject
 
 
 class UserService : BaseService() {
@@ -38,5 +40,38 @@ class UserService : BaseService() {
 
         val requestQueue = Volley.newRequestQueue(context)
         requestQueue.add(jsonObjectRequest)
+    }
+
+    fun registerUser(username: String, fullName: String, password: String, context: Context, callback: (Boolean) -> Unit){
+        val url = "${ApiBaseURL}${resource}"
+        var userJsonObj = JSONObject()
+        userJsonObj.put("userName", username)
+        userJsonObj.put("fullName", fullName)
+        userJsonObj.put("password", password)
+
+        val requestBody = userJsonObj.toString()
+
+        val stringRequest = object : StringRequest(
+            Method.POST, url,
+            Response.Listener { response ->
+                val success = response.trim().equals("true", ignoreCase = true)
+                callback(success)
+            },
+            Response.ErrorListener { error ->
+                Log.e("VolleyError", error.toString())
+                callback(false)
+            }
+        ) {
+            override fun getBody(): ByteArray {
+                return requestBody.toByteArray(Charsets.UTF_8)
+            }
+
+            override fun getBodyContentType(): String {
+                return "application/json; charset=utf-8"
+            }
+        }
+
+        val requestQueue = Volley.newRequestQueue(context)
+        requestQueue.add(stringRequest)
     }
 }
