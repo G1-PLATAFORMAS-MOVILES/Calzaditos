@@ -1,5 +1,6 @@
 package com.calzaditos.android.services
 
+import android.R
 import android.content.Context
 import android.util.Log
 import com.android.volley.Response
@@ -80,6 +81,30 @@ class CartService : BaseService(){
                     products.add(product)
                 }
                 callback(products)
+            },
+            Response.ErrorListener { error ->
+                Log.e("VolleyError", error.toString())
+            }
+        ) {}
+
+        val requestQueue = Volley.newRequestQueue(context)
+        requestQueue.add(jsonRequest)
+    }
+
+    fun getCoupon(coupon: String, context: Context, callback: (Double?) -> Unit){
+        var url = "${ApiBaseURL}${resource}Cupon?cupon=${coupon}"
+
+        val jsonRequest = object : JsonObjectRequest(
+            Method.GET, url, null,
+            Response.Listener { response ->
+                var success = response.getBoolean("isSuccess")
+                if(!success){
+                    callback(null)
+                }
+                else {
+                    val coupon = response.getJSONObject("data")
+                    callback(coupon.getDouble("amount"))
+                }
             },
             Response.ErrorListener { error ->
                 Log.e("VolleyError", error.toString())
