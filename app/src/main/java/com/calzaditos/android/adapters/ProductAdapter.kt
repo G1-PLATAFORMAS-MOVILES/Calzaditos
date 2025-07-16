@@ -1,5 +1,6 @@
 package com.calzaditos.android.adapters
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ class ProductAdapter(private val productos: List<Product>) :
         val imgProduct: ImageView = itemView.findViewById(R.id.img_product)
         val txtName: TextView = itemView.findViewById(R.id.txt_product)
         val txtPrice: TextView = itemView.findViewById(R.id.txt_price_product)
+        val imgFavorite: ImageView = itemView.findViewById(R.id.img_favorite)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -43,6 +45,31 @@ class ProductAdapter(private val productos: List<Product>) :
             intent.putExtra("productId", product.id)
             holder.itemView.context.startActivity(intent)
         }
+
+        val sharedPreferences = holder.itemView.context.getSharedPreferences("calzaditos", Context.MODE_PRIVATE)
+        val favoritesList = sharedPreferences.getStringSet("isFavorite", mutableSetOf())?.toMutableSet() ?: mutableSetOf()
+
+        var isFavorite = favoritesList.contains(product.id.toString())
+
+        holder.imgFavorite.setImageResource(
+            if (isFavorite) R.drawable.ic_favorite_filled
+            else R.drawable.ic_favorite_border
+        )
+
+        holder.imgFavorite.setOnClickListener {
+            isFavorite = !isFavorite
+            holder.imgFavorite.setImageResource(
+                if (isFavorite) R.drawable.ic_favorite_filled
+                else R.drawable.ic_favorite_border
+            )
+            if (isFavorite) {
+                favoritesList.add(product.id.toString())
+            } else {
+                favoritesList.remove(product.id.toString())
+            }
+            sharedPreferences.edit().putStringSet("isFavorite", favoritesList).apply()
+        }
+
     }
 
     override fun getItemCount(): Int = productos.size

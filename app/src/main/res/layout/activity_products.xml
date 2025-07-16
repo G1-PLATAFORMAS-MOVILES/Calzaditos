@@ -30,7 +30,6 @@
             android:hint="¿Qué estás buscando?"
             android:inputType="text"
             android:paddingStart="10dp"
-            android:textColorHint="@color/black"
             android:background="@drawable/border"/>
 
         <ImageView
@@ -69,6 +68,7 @@
 
         <!-- categoría -->
         <LinearLayout
+            android:id="@+id/category_sandalias"
             android:orientation="vertical"
             android:gravity="center"
             android:layout_width="wrap_content"
@@ -88,6 +88,7 @@
                 android:textSize="12sp" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/category_zapatillas"
             android:orientation="vertical"
             android:gravity="center"
             android:layout_width="wrap_content"
@@ -107,6 +108,7 @@
                 android:textSize="12sp" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/category_botas"
             android:orientation="vertical"
             android:gravity="center"
             android:layout_width="wrap_content"
@@ -127,6 +129,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/category_zapatos"
             android:orientation="vertical"
             android:gravity="center"
             android:layout_width="wrap_content"
