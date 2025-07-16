@@ -38,6 +38,8 @@ class ProductService : BaseService() {
             }
         ) {}
 
+        jsonRequest.retryPolicy = RetryPolicy
+
         val requestQueue = Volley.newRequestQueue(context)
         requestQueue.add(jsonRequest)
     }

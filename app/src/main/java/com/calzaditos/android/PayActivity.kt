@@ -3,6 +3,7 @@ package com.calzaditos.android
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -40,6 +41,27 @@ class PayActivity : BaseActivity() {
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Error al vaciar el carrito", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    fun applyCoupon(view: View) {
+        val coupon = findViewById<TextView>(R.id.cupon).text.toString()
+        CartService().getCoupon(coupon, this) { discount ->
+            val textViewDiscount = findViewById<TextView>(R.id.txt_discount)
+            val layoutDiscount = findViewById<LinearLayout>(R.id.discount_layout)
+            val sum = intent.getDoubleExtra("sum", 0.0)
+            if(discount != null) {
+                textViewDiscount.text = "- S/ %.2f".format(sum*(discount/100))
+                layoutDiscount.visibility = View.VISIBLE
+                val textViewTotal = findViewById<TextView>(R.id.text_total)
+                textViewTotal.text = "S/ %.2f".format(sum*(1-(discount/100)))
+            }
+            else {
+                layoutDiscount.visibility = View.GONE
+                val textViewTotal = findViewById<TextView>(R.id.text_total)
+                textViewTotal.text = "S/ %.2f".format(sum)
+                Toast.makeText(this, "Cupón no válido", Toast.LENGTH_SHORT).show()
             }
         }
     }

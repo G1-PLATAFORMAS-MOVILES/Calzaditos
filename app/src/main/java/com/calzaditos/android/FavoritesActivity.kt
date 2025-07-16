@@ -24,6 +24,9 @@ class FavoritesActivity : BaseActivity() {
         }
 
         ProductService().getProducts(this) { products ->
+            val sharedPreferences = getSharedPreferences("calzaditos", MODE_PRIVATE)
+            val favoritesList = sharedPreferences.getStringSet("isFavorite", mutableSetOf())?.toMutableSet() ?: mutableSetOf()
+            products.removeAll { !favoritesList.contains(it.id.toString()) }
             val recyclerView = findViewById<RecyclerView>(R.id.recycler_view_favoritos)
             recyclerView.layoutManager = GridLayoutManager(this, 2)
             recyclerView.adapter = ProductAdapter(products)

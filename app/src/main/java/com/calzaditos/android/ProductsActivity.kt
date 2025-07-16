@@ -2,7 +2,10 @@ package com.calzaditos.android
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Menu
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -73,6 +76,40 @@ class ProductsActivity : BaseActivity() {
             allProducts = products
             loadProducts(products)
         }
+
+        var searchBar = findViewById<EditText>(R.id.search_bar)
+        searchBar.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
+                filterAndUpdateProducts(charSequence.toString())
+            }
+
+            override fun afterTextChanged(editable: Editable?) {
+            }
+        })
+
+        val categorySandalias = findViewById<LinearLayout>(R.id.category_sandalias)
+        categorySandalias.setOnClickListener {
+            filterAndUpdateProducts("Sandalia")
+        }
+
+        val categoryZapatillas = findViewById<LinearLayout>(R.id.category_zapatillas)
+        categoryZapatillas.setOnClickListener {
+            filterAndUpdateProducts("Zapatilla")
+        }
+
+        val categoryBotas = findViewById<LinearLayout>(R.id.category_botas)
+        categoryBotas.setOnClickListener {
+            filterAndUpdateProducts("Bota")
+        }
+
+        val categoryZapatos = findViewById<LinearLayout>(R.id.category_zapatos)
+        categoryZapatos.setOnClickListener {
+            filterAndUpdateProducts("Zapato")
+        }
+
     }
 
     fun loadProducts(products : ArrayList<Product>) {
@@ -88,5 +125,11 @@ class ProductsActivity : BaseActivity() {
                 filteredProducts.add(product)
             }
         }
+    }
+
+    fun filterAndUpdateProducts(query: String) {
+        val filteredProducts = allProducts.filter { it.name.contains(query, ignoreCase = true) }
+        val recyclerView = findViewById<RecyclerView>(R.id.product_grid)
+        recyclerView.adapter = ProductAdapter(filteredProducts)
     }
 }
