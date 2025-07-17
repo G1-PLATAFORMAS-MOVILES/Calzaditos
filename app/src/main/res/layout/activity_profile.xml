@@ -112,9 +112,11 @@
         <View style="@style/Divider" />
 
         <TextView
+            android:id="@+id/adress"
             style="@style/ProfileMenuItem"
             android:drawableStart="@drawable/ic_home"
-            android:text="Direcciones" />
+            android:text="Direcciones"
+            android:onClick="Iradress"/>
 
         <View style="@style/Divider" />
 

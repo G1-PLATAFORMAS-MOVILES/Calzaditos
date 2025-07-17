@@ -14,6 +14,9 @@ import com.calzaditos.android.models.Product
 import com.calzaditos.android.services.CartService
 
 class PayActivity : BaseActivity() {
+    var sum = 0.0
+    var total = 0.0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -25,7 +28,7 @@ class PayActivity : BaseActivity() {
             insets
         }
 
-        val sum = intent.getDoubleExtra("sum", 0.0)
+        sum = intent.getDoubleExtra("sum", 0.0)
         val textViewTotal = findViewById<TextView>(R.id.text_total)
         textViewTotal.text = "S/ %.2f".format(sum)
         val textViewSubTotal = findViewById<TextView>(R.id.text_subtotal)
@@ -37,12 +40,14 @@ class PayActivity : BaseActivity() {
         CartService().emptyCart(userId, this) { success ->
             if (success) {
                 Toast.makeText(this, "Pago realizado con éxito", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, HomeActivity::class.java)
+                val intent = Intent(this, OrderConfirmedActivity::class.java)
+                intent.putExtra("total", total)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Error al vaciar el carrito", Toast.LENGTH_SHORT).show()
             }
         }
+
     }
 
     fun applyCoupon(view: View) {
@@ -50,14 +55,15 @@ class PayActivity : BaseActivity() {
         CartService().getCoupon(coupon, this) { discount ->
             val textViewDiscount = findViewById<TextView>(R.id.txt_discount)
             val layoutDiscount = findViewById<LinearLayout>(R.id.discount_layout)
-            val sum = intent.getDoubleExtra("sum", 0.0)
             if(discount != null) {
+                total = sum*(1-(discount/100))
                 textViewDiscount.text = "- S/ %.2f".format(sum*(discount/100))
                 layoutDiscount.visibility = View.VISIBLE
                 val textViewTotal = findViewById<TextView>(R.id.text_total)
                 textViewTotal.text = "S/ %.2f".format(sum*(1-(discount/100)))
             }
             else {
+                total = sum
                 layoutDiscount.visibility = View.GONE
                 val textViewTotal = findViewById<TextView>(R.id.text_total)
                 textViewTotal.text = "S/ %.2f".format(sum)
